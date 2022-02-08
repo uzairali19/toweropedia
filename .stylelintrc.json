@@ -12,6 +12,8 @@
     "**/reset*.css",
     "**/bootstrap*.css",
     "**/*.js",
-    "**/*.jsx"
+    "**/*.ts",
+    "**/*.jsx",
+    "**/*.json"
   ]
 }
