@@ -12,7 +12,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
           // divider: amber[200],
           text: {
             primary: '#293845',
-            // secondary: grey[800],
+            secondary: '#6c757d',
           },
         }
       : {

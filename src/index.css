@@ -5,3 +5,15 @@
 body {
   overflow-x: hidden;
 }
+
+.body-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.css-qi77ln-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #000 !important;
+}

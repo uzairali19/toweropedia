@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import getDesignTokens from '../theme/theme';
 import { getClients } from '../redux/actions/clients';
+import Body from './Body';
 
 const MyApp = ({ modeHandler }: { modeHandler: any }) => {
   const dispatch = useDispatch();
@@ -16,12 +17,12 @@ const MyApp = ({ modeHandler }: { modeHandler: any }) => {
   return (
     <Paper
       sx={{
-        display: 'flex',
         width: '100%',
         minHeight: '100vh',
       }}
     >
       <Header mode={modeHandler} />
+      <Body />
     </Paper>
   );
 };
