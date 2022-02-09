@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "An application for displaying buildings ownerships",
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "scripts": {
     "start": "webpack serve --open --mode development",
     "build": "webpack --mode production",
-    "eslint": "eslint .",
-    "stylelint": "stylelint ."
+    "lint": "eslint . && stylelint '**/*.{css,scss}'"
   },
   "repository": {
     "type": "git",
@@ -48,10 +50,12 @@
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "babel-loader": "^8.2.3",
+    "css-loader": "^6.6.0",
     "eslint": "^8.8.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "fork-ts-checker-webpack-plugin": "^7.2.0",
+    "style-loader": "^3.3.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^21.0.0",
     "stylelint-csstree-validator": "^1.9.0",
