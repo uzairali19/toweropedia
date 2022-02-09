@@ -12,6 +12,7 @@ const Header = ({ mode }: { mode?: any }) => {
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+            data-testid="title"
           >
             TowerOpedia
           </Typography>
