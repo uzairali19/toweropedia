@@ -1,1 +1,4 @@
 node_modules
+coverage_dir=coverage
+coverage
+
