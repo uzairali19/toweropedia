@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Paper } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import getDesignTokens from '../theme/theme';
+import { getClients } from '../redux/actions/clients';
 
-function MyApp({ modeHandler }: { modeHandler: any }) {
+const MyApp = ({ modeHandler }: { modeHandler: any }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getClients());
+  }, [dispatch]);
+
   return (
     <Paper
       sx={{
@@ -16,7 +24,7 @@ function MyApp({ modeHandler }: { modeHandler: any }) {
       <Header mode={modeHandler} />
     </Paper>
   );
-}
+};
 
 const darkModeTheme = createTheme(getDesignTokens('dark'));
 const lightModeTheme = createTheme(getDesignTokens('light'));

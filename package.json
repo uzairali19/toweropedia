@@ -6,13 +6,21 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.4.1",
+    "axios": "^0.25.0",
+    "json-server": "^0.17.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
+    "usehooks-ts": "^2.3.0"
   },
   "scripts": {
     "start": "webpack serve --open --mode development",
     "build": "webpack --mode production",
-    "lint": "eslint . && stylelint '**/*.{css,scss}'"
+    "lint": "eslint . && stylelint '**/*.{css,scss}'",
+    "server": "json-server --watch ./server/db.json --port 3006"
   },
   "repository": {
     "type": "git",
@@ -45,6 +53,7 @@
     "@babel/runtime": "^7.17.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "@types/redux-logger": "^3.0.9",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.7.2",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
