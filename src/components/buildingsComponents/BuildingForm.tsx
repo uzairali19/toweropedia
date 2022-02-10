@@ -8,20 +8,26 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import countriesList from '../../../server/data/countriesList.json';
+import { createBuilding } from '../../redux/actions/clients';
 
-const BuildingForm = () => {
+const BuildingForm = ({ clientId }: { clientId: number }) => {
   const [country, setCountry] = useState('');
   const [countryData, setCountryData] = useState({
     id: '',
     name: '',
     position: null,
   });
+
+  const dispatch = useDispatch();
+
   const countryHandler = (e: any) => {
     setCountry(e.target.value);
   };
 
-  const countryAddHandler = () => {
+  const countryAddHandler = (e: any) => {
+    e.preventDefault();
     countriesList.filter((value: any) => {
       if (value.id === country) {
         setCountryData({
@@ -31,6 +37,8 @@ const BuildingForm = () => {
         });
       }
     });
+    dispatch(createBuilding(clientId, countryData));
+    setCountryData({ id: '', name: '', position: null });
   };
 
   console.log(countryData);

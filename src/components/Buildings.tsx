@@ -14,7 +14,7 @@ const Buildings = ({ client }: { client: any }) => {
         addBuilding={addBuilding}
       />
       {/* <BuildingMap /> */}
-      <BuildingForm />
+      <BuildingForm clientId={client} />
     </Box>
   );
 };
