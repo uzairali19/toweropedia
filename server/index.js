@@ -14,7 +14,7 @@ app.use(cors());
 app.use('/clients', clientsRouter);
 const CONNECTION =
   'mongodb+srv://uzairali:nAdB7wuwbqqslCFu@moodme-trail.wntop.mongodb.net/toweropedia?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 mongoose
   .connect(CONNECTION)
