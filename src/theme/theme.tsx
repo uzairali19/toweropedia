@@ -6,13 +6,13 @@ const getDesignTokens = (mode: PaletteMode) => ({
     ...(mode === 'light'
       ? {
           // palette values for light mode
-          primary: {
-            main: '#fff',
-          },
+          // primary: {
+          //   main: '#fff',
+          // },
           // divider: amber[200],
           text: {
             primary: '#293845',
-            secondary: '#6c757d',
+            secondary: '#eee',
           },
         }
       : {
@@ -25,7 +25,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
           },
           text: {
             primary: '#fff',
-            // secondary: grey[500],
+            secondary: '#293845',
           },
         }),
   },

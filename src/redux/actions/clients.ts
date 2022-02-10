@@ -11,9 +11,9 @@ export const getClients = () => async (dispatch : any) => {
     }
   };
   
-  export const createClient = (mood : any) => async (dispatch : any) => {
+  export const createClient = (id:number, client : any) => async (dispatch : any) => {
     try {
-      const { data } = await api.createClient(mood);
+      const { data } = await api.createBuilding(id,client);
       const action = { type: POST_CLIENTS, payload: data };
       dispatch(action);
     } catch (error) {

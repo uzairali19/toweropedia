@@ -4,12 +4,17 @@ import { MenuItem, FormControl, Select } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useSelector } from 'react-redux';
 
-const SelectComponent = () => {
-  const [client, setClient] = useState('');
+const SelectComponent = ({
+  setclient,
+  client,
+}: {
+  setclient: any;
+  client: any;
+}) => {
   const clients = useSelector((state: any) => state.clientsReducer);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setClient(event.target.value);
+    setclient(event.target.value);
   };
 
   return (
