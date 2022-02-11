@@ -13,8 +13,8 @@ const SelectComponent = ({
 }) => {
   const clients = useSelector((state: any) => state.clientsReducer);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setclient(event.target.value);
+  const handleChange = (e: SelectChangeEvent) => {
+    setclient(e.target.value);
   };
 
   return (
@@ -33,8 +33,8 @@ const SelectComponent = ({
           </MenuItem>
           {clients.map((client: any) => {
             return (
-              <MenuItem key={client.id} value={client.id}>
-                {client.name}
+              <MenuItem key={client._id} value={client._id}>
+                {client.client_name}
               </MenuItem>
             );
           })}

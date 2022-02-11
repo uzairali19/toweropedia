@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   Box,
   IconButton,
@@ -10,20 +10,45 @@ import {
 import { Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteBuilding } from '../../redux/actions/clients';
+import usePrevious from '../customHooks/previousState';
 
 const BuildingList = ({
   clientId,
   setAddBuilding,
   addBuilding,
+  setEditBuilding,
+  editBuilding,
 }: {
-  clientId: number;
+  clientId: string;
   setAddBuilding: any;
   addBuilding: boolean;
+  setEditBuilding: any;
+  editBuilding: any;
 }) => {
   const clients = useSelector((state: any) => state.clientsReducer);
+
+  const prevEditBuilding:any = useRef();
+  useEffect(()=>{
+    prevEditBuilding.current = editBuilding;
+  },[editBuilding])
+
+
+  const dispatch = useDispatch();
+
   const addHandler = () => {
+    setEditBuilding({mode: false, building: {}})
     setAddBuilding(!addBuilding);
+  };
+
+  const editHandler = (building: any) => {
+      setEditBuilding({ mode: !editBuilding.mode, building: building });
+      setAddBuilding(!addBuilding);
+  };
+
+  const deleteHandler = (building: any) => {
+    dispatch(deleteBuilding(clientId, building._id));
   };
 
   return (
@@ -45,7 +70,7 @@ const BuildingList = ({
         >
           {clients
             .filter((client: any) => {
-              if (client.id === clientId) {
+              if (client._id === clientId) {
                 return client;
               }
             })
@@ -57,11 +82,21 @@ const BuildingList = ({
                     disableGutters
                     secondaryAction={
                       <>
-                        <IconButton>
+                        <IconButton
+                          onClick={(e) => {
+                            e.preventDefault();
+                            editHandler(building);
+                          }}
+                        >
                           <EditIcon />
                         </IconButton>
                         <IconButton>
-                          <DeleteForeverIcon />
+                          <DeleteForeverIcon
+                            onClick={(e) => {
+                              e.preventDefault();
+                              deleteHandler(building);
+                            }}
+                          />
                         </IconButton>
                       </>
                     }
@@ -74,7 +109,19 @@ const BuildingList = ({
               });
             })}
         </List>
-        <Button
+
+        {addBuilding ? <Button
+          sx={{
+            color: 'text.primary',
+            background: 'primary',
+            width: '100%',
+            height: '50px',
+          }}
+          variant="contained"
+          onClick={addHandler}
+        >
+          Show map
+        </Button> : <Button
           sx={{
             color: 'text.primary',
             background: 'primary',
@@ -85,7 +132,8 @@ const BuildingList = ({
           onClick={addHandler}
         >
           Add Building
-        </Button>
+        </Button>}
+        
       </Box>
     </Box>
   );

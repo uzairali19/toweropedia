@@ -7,9 +7,18 @@ const clientsReducer = (state = initialState, action : any) => {
     case GET_CLIENTS:
       return action.payload;
     case POST_CLIENTS:
-      return [...state, action.payload];
+      return [...state, state.map((client:any)=>{
+        if(client._id === action.payload._id){
+          client.buildings = action.payload.buildings
+        }
+      })];
     case DELETE_CLIENT:
-      return state.filter((client:any) => client._id !== action.payload);
+      const prevState = [...state]
+      return state.filter((client:any) => {client.buildings.map((building:any)=>{
+        if(building._id === action.payload.building_id){
+          return building._id
+        }
+      }) !== action.payload.building_id});
     default:
       return state;
   }

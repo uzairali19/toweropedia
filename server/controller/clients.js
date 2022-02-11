@@ -43,7 +43,8 @@ export const getBuildings = async (req, res) => {
 };
 
 export const createBuildings = async (req, res) => {
-  const { id, name, position } = req.body;
+  const { name, position } = req.body;
+  const id = req.params.id;
   const client = await Client.findById(id);
   client.buildings.push({ name, position });
   try {
@@ -66,7 +67,8 @@ export const getBuilding = async (req, res) => {
 };
 
 export const deleteBuilding = async (req, res) => {
-  const { id, building_id } = req.body;
+  const id = req.params.id;
+  const building_id = req.params.building_id;
   if (!mongoose.Types.ObjectId.isValid(building_id))
     return res.status(404).send(`No Building With the Id: ${building_id}`);
 
@@ -76,7 +78,7 @@ export const deleteBuilding = async (req, res) => {
   try {
     building.remove();
     client.save();
-    res.json({ message: `Building ${building} Deleted Successfully` });
+    res.json({ message: `Building ${building} Deleted Successfully` , building_id: building_id});
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

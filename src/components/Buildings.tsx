@@ -6,15 +6,25 @@ import BuildingForm from './buildingsComponents/BuildingForm';
 
 const Buildings = ({ client }: { client: any }) => {
   const [addBuilding, setAddBuilding] = useState(false);
+  const [editBuilding, setEditBuilding] = useState({
+    mode: false,
+    building: {},
+  });
+
   return (
     <Box className="buildings">
       <BuildingList
         clientId={client}
         setAddBuilding={setAddBuilding}
         addBuilding={addBuilding}
+        setEditBuilding={setEditBuilding}
+        editBuilding={editBuilding}
       />
-      {/* <BuildingMap /> */}
-      <BuildingForm clientId={client} />
+      {addBuilding ? (
+        <BuildingForm clientId={client} editBuilding={editBuilding} />
+      ) : (
+        <BuildingMap />
+      )}
     </Box>
   );
 };

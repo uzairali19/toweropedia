@@ -21,7 +21,7 @@ clientsRouter.get('/:id/buildings', getBuildings);
 clientsRouter.post('/:id/buildings', createBuildings);
 
 clientsRouter.get('/:id/buildings/:id', getBuilding);
-clientsRouter.delete('/:id/buildings/:id', deleteBuilding);
+clientsRouter.delete('/:id/buildings/:building_id', deleteBuilding);
 clientsRouter.patch('/:id/buildings/:id', editBuilding);
 
 export default clientsRouter;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   TextField,
@@ -10,15 +10,30 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import countriesList from '../../../server/data/countriesList.json';
-import { createBuilding } from '../../redux/actions/clients';
+import { createBuilding, editingBuilding } from '../../redux/actions/clients';
 
-const BuildingForm = ({ clientId }: { clientId: number }) => {
+const BuildingForm = ({
+  clientId,
+  editBuilding,
+}: {
+  clientId: string;
+  editBuilding: any;
+}) => {
   const [country, setCountry] = useState('');
   const [countryData, setCountryData] = useState({
-    id: '',
     name: '',
-    position: null,
   });
+
+  useEffect(() => {
+    if (editBuilding.mode) {
+      setCountryData({ name: editBuilding.building.name });
+      countriesList.forEach((country: any) => {
+        if (editBuilding.building.position.join() == country.position.join()) {
+          return setCountry(country.position);
+        }
+      });
+    }
+  }, [editBuilding]);
 
   const dispatch = useDispatch();
 
@@ -27,21 +42,29 @@ const BuildingForm = ({ clientId }: { clientId: number }) => {
   };
 
   const countryAddHandler = (e: any) => {
-    e.preventDefault();
-    countriesList.filter((value: any) => {
-      if (value.id === country) {
-        setCountryData({
-          id: value.id,
-          name: countryData.name,
-          position: value.position,
-        });
-      }
-    });
-    dispatch(createBuilding(clientId, countryData));
-    setCountryData({ id: '', name: '', position: null });
+    const data = {
+      name: countryData.name,
+      position: country,
+    };
+
+    dispatch(createBuilding(clientId, data));
   };
 
-  console.log(countryData);
+  const countryEditHandler  =  () => {
+    const data = {
+      id: clientId,
+      building_id: editBuilding.building._id,
+      name: countryData.name,
+      position: country,
+    }
+
+    dispatch(editingBuilding(clientId, editBuilding.building._id, data))
+  }
+
+  const cancelHandler = () => {
+    setCountryData({ name: '' });
+    setCountry('');
+  };
 
   return (
     <div className="form-wrapper">
@@ -75,20 +98,31 @@ const BuildingForm = ({ clientId }: { clientId: number }) => {
           >
             {countriesList.map((country: any) => {
               return (
-                <MenuItem key={country.id} value={country.id}>
+                <MenuItem key={country.id} value={country.position}>
                   {country.name}
                 </MenuItem>
               );
             })}
           </Select>
-          <Button
+          {editBuilding.mode ? <Button
+            sx={{ backgroundColor: 'text.primary' }}
+            variant="contained"
+            onClick={countryEditHandler}
+          >
+           Edit
+          </Button> : <Button
             sx={{ backgroundColor: 'text.primary' }}
             variant="contained"
             onClick={countryAddHandler}
           >
             Create
-          </Button>
-          <Button sx={{ backgroundColor: 'text.danger' }} variant="contained">
+          </Button>}
+          
+          <Button
+            sx={{ backgroundColor: 'text.danger' }}
+            variant="contained"
+            onClick={cancelHandler}
+          >
             Cancel
           </Button>
         </FormControl>

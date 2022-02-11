@@ -24,7 +24,7 @@
     "start": "webpack serve --open --mode development",
     "build": "webpack --mode production",
     "lint": "eslint . && stylelint '**/*.{css,scss}'",
-    "server": "json-server --watch ./server/db.json --port 3006 --routes ./server/routes.json",
+    "server": "nodemon ./server/index.js",
     "test": "jest --coverage --env=jsdom"
   },
   "repository": {
