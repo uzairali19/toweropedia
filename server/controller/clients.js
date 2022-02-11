@@ -78,7 +78,11 @@ export const deleteBuilding = async (req, res) => {
   try {
     building.remove();
     client.save();
-    res.json({ message: `Building ${building} Deleted Successfully` , building_id: building_id});
+    res.json({
+      message: `Building ${building} Deleted Successfully`,
+      building_id: building_id,
+      client_id: id,
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -100,7 +104,12 @@ export const editBuilding = async (req, res) => {
   }
   try {
     client.save();
-    res.json({ message: `Building ${building} Edited Successfully` });
+    res.json({
+      message: `Building ${building} Edited Successfully`,
+      building_id: building_id,
+      client_id: id,
+      building: building,
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

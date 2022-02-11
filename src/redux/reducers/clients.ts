@@ -13,12 +13,22 @@ const clientsReducer = (state = initialState, action : any) => {
         }
       })];
     case DELETE_CLIENT:
-      const prevState = [...state]
-      return state.filter((client:any) => {client.buildings.map((building:any)=>{
-        if(building._id === action.payload.building_id){
-          return building._id
+      return [...state , state.map((client:any)=> {
+        if(client._id === action.payload.client_id){
+          return client.buildings = client.buildings.filter((building:any)=>building._id !== action.payload.building_id)
         }
-      }) !== action.payload.building_id});
+      })]
+  case EDIT_CLIENT:
+    return [...state , state.map((client:any)=> {
+      if(client._id === action.payload.client_id){
+        return client.buildings = client.buildings.map((building:any)=>{
+          if(building._id === action.payload.building_id){
+            return building = action.payload.building
+          }
+          return building
+        })
+      }
+    })]
     default:
       return state;
   }

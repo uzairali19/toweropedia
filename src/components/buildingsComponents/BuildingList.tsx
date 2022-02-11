@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Box,
   IconButton,
@@ -12,7 +12,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteBuilding } from '../../redux/actions/clients';
-import usePrevious from '../customHooks/previousState';
 
 const BuildingList = ({
   clientId,
@@ -29,22 +28,21 @@ const BuildingList = ({
 }) => {
   const clients = useSelector((state: any) => state.clientsReducer);
 
-  const prevEditBuilding:any = useRef();
-  useEffect(()=>{
+  const prevEditBuilding: any = useRef();
+  useEffect(() => {
     prevEditBuilding.current = editBuilding;
-  },[editBuilding])
-
+  }, [editBuilding]);
 
   const dispatch = useDispatch();
 
   const addHandler = () => {
-    setEditBuilding({mode: false, building: {}})
+    setEditBuilding({ mode: false, building: {} });
     setAddBuilding(!addBuilding);
   };
 
   const editHandler = (building: any) => {
-      setEditBuilding({ mode: !editBuilding.mode, building: building });
-      setAddBuilding(!addBuilding);
+    setEditBuilding({ mode: !editBuilding.mode, building: building });
+    setAddBuilding(!addBuilding);
   };
 
   const deleteHandler = (building: any) => {
@@ -110,30 +108,33 @@ const BuildingList = ({
             })}
         </List>
 
-        {addBuilding ? <Button
-          sx={{
-            color: 'text.primary',
-            background: 'primary',
-            width: '100%',
-            height: '50px',
-          }}
-          variant="contained"
-          onClick={addHandler}
-        >
-          Show map
-        </Button> : <Button
-          sx={{
-            color: 'text.primary',
-            background: 'primary',
-            width: '100%',
-            height: '50px',
-          }}
-          variant="contained"
-          onClick={addHandler}
-        >
-          Add Building
-        </Button>}
-        
+        {addBuilding ? (
+          <Button
+            sx={{
+              color: 'text.primary',
+              background: 'primary',
+              width: '100%',
+              height: '50px',
+            }}
+            variant="contained"
+            onClick={addHandler}
+          >
+            Show map
+          </Button>
+        ) : (
+          <Button
+            sx={{
+              color: 'text.primary',
+              background: 'primary',
+              width: '100%',
+              height: '50px',
+            }}
+            variant="contained"
+            onClick={addHandler}
+          >
+            Add Building
+          </Button>
+        )}
       </Box>
     </Box>
   );
