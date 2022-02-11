@@ -19,12 +19,16 @@ const BuildingList = ({
   addBuilding,
   setEditBuilding,
   editBuilding,
+  setSelectedBuilding,
+  selectedBuilding,
 }: {
   clientId: string;
   setAddBuilding: any;
   addBuilding: boolean;
   setEditBuilding: any;
   editBuilding: any;
+  setSelectedBuilding: any;
+  selectedBuilding: any;
 }) => {
   const clients = useSelector((state: any) => state.clientsReducer);
 
@@ -36,6 +40,12 @@ const BuildingList = ({
   const dispatch = useDispatch();
 
   const addHandler = () => {
+    setSelectedBuilding({
+      mode: false,
+      building: {},
+      position: [51.505, -0.09],
+      map: selectedBuilding.map,
+    });
     setEditBuilding({ mode: false, building: {} });
     setAddBuilding(!addBuilding);
   };
@@ -47,6 +57,17 @@ const BuildingList = ({
 
   const deleteHandler = (building: any) => {
     dispatch(deleteBuilding(clientId, building._id));
+  };
+
+  const buildingHandler = (building: any) => {
+    setSelectedBuilding({
+      mode: true,
+      building: building,
+      position: building.position,
+      map: selectedBuilding.map,
+    });
+    const map = selectedBuilding.map;
+    map.flyTo(selectedBuilding.position, 6);
   };
 
   return (
@@ -63,6 +84,7 @@ const BuildingList = ({
             position: 'relative',
             overflow: 'auto',
             minHeight: 480,
+            maxHeight: 480,
             '& ul': { padding: 0 },
           }}
         >
@@ -99,7 +121,12 @@ const BuildingList = ({
                       </>
                     }
                   >
-                    <ListItemButton>
+                    <ListItemButton
+                      onClick={(e) => {
+                        e.preventDefault();
+                        buildingHandler(building);
+                      }}
+                    >
                       <ListItemText primary={building.name} />
                     </ListItemButton>
                   </ListItem>

@@ -10,6 +10,12 @@ const Buildings = ({ client }: { client: any }) => {
     mode: false,
     building: {},
   });
+  const [selectedBuilding, setSelectedBuilding] = useState({
+    mode: false,
+    building: {},
+    position: [51.505, -0.09],
+    map: null,
+  });
 
   return (
     <Box className="buildings">
@@ -19,11 +25,16 @@ const Buildings = ({ client }: { client: any }) => {
         addBuilding={addBuilding}
         setEditBuilding={setEditBuilding}
         editBuilding={editBuilding}
+        setSelectedBuilding={setSelectedBuilding}
+        selectedBuilding={selectedBuilding}
       />
       {addBuilding ? (
         <BuildingForm clientId={client} editBuilding={editBuilding} />
       ) : (
-        <BuildingMap />
+        <BuildingMap
+          selectedBuilding={selectedBuilding}
+          setSelectedBuilding={setSelectedBuilding}
+        />
       )}
     </Box>
   );
