@@ -99,14 +99,14 @@ const BuildingList = ({
           <Loading />
         ) : (
           <List
+            className="building-list"
             sx={{
               width: '100%',
               maxWidth: 360,
               bgcolor: 'background.paper',
               position: 'relative',
               overflow: 'auto',
-              minHeight: 480,
-              maxHeight: 480,
+              height: 480,
               '& ul': { padding: 0 },
             }}
           >
