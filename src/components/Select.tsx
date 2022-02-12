@@ -18,29 +18,27 @@ const SelectComponent = ({
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, minWidth: '100px' }}>
-        <InputLabel sx={{ color: 'text.primary' }}>Client</InputLabel>
-        <Select
-          id="demo-simple-select-autowidth"
-          value={client}
-          onChange={handleChange}
-          autoWidth
-          label="Client"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {clients.map((client: any) => {
-            return (
-              <MenuItem key={client._id} value={client._id}>
-                {client.client_name}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    </div>
+    <FormControl className="selector" sx={{ m: 1, minWidth: '200px' }}>
+      <InputLabel sx={{ color: 'text.primary' }}>Client</InputLabel>
+      <Select
+        id="demo-simple-select-autowidth"
+        value={client}
+        onChange={handleChange}
+        autoWidth
+        label="Client"
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {clients.map((client: any) => {
+          return (
+            <MenuItem key={client._id} value={client._id}>
+              {client.client_name}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
   );
 };
 

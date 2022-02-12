@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Box,
   IconButton,
@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteBuilding } from '../../redux/actions/clients';
+import Loading from '../Loader';
 
 const BuildingList = ({
   clientId,
@@ -32,9 +33,15 @@ const BuildingList = ({
 }) => {
   const clients = useSelector((state: any) => state.clientsReducer);
 
+  const [loading, setLoading] = useState(true);
+
   const prevEditBuilding: any = useRef();
+
   useEffect(() => {
     prevEditBuilding.current = editBuilding;
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
   }, [editBuilding]);
 
   const dispatch = useDispatch();
@@ -51,12 +58,24 @@ const BuildingList = ({
   };
 
   const editHandler = (building: any) => {
+    setSelectedBuilding({
+      mode: false,
+      building: {},
+      position: [51.505, -0.09],
+      map: selectedBuilding.map,
+    });
     setEditBuilding({ mode: !editBuilding.mode, building: building });
     setAddBuilding(!addBuilding);
   };
 
   const deleteHandler = (building: any) => {
     dispatch(deleteBuilding(clientId, building._id));
+    setSelectedBuilding({
+      mode: false,
+      building: {},
+      position: [51.505, -0.09],
+      map: selectedBuilding.map,
+    });
   };
 
   const buildingHandler = (building: any) => {
@@ -76,65 +95,68 @@ const BuildingList = ({
         className="list-content"
         sx={{ backgroundColor: 'text.secondary', color: 'text.primary' }}
       >
-        <List
-          sx={{
-            width: '100%',
-            maxWidth: 360,
-            bgcolor: 'background.paper',
-            position: 'relative',
-            overflow: 'auto',
-            minHeight: 480,
-            maxHeight: 480,
-            '& ul': { padding: 0 },
-          }}
-        >
-          {clients
-            .filter((client: any) => {
-              if (client._id === clientId) {
-                return client;
-              }
-            })
-            .map((client: any) => {
-              return client.buildings.map((building: any, index: number) => {
-                return (
-                  <ListItem
-                    key={index}
-                    disableGutters
-                    secondaryAction={
-                      <>
-                        <IconButton
-                          onClick={(e) => {
-                            e.preventDefault();
-                            editHandler(building);
-                          }}
-                        >
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton>
-                          <DeleteForeverIcon
+        {loading ? (
+          <Loading />
+        ) : (
+          <List
+            sx={{
+              width: '100%',
+              maxWidth: 360,
+              bgcolor: 'background.paper',
+              position: 'relative',
+              overflow: 'auto',
+              minHeight: 480,
+              maxHeight: 480,
+              '& ul': { padding: 0 },
+            }}
+          >
+            {clients
+              .filter((client: any) => {
+                if (client._id === clientId) {
+                  return client;
+                }
+              })
+              .map((client: any) => {
+                return client.buildings.map((building: any, index: number) => {
+                  return (
+                    <ListItem
+                      key={index}
+                      disableGutters
+                      secondaryAction={
+                        <>
+                          <IconButton
                             onClick={(e) => {
                               e.preventDefault();
-                              deleteHandler(building);
+                              editHandler(building);
                             }}
-                          />
-                        </IconButton>
-                      </>
-                    }
-                  >
-                    <ListItemButton
-                      onClick={(e) => {
-                        e.preventDefault();
-                        buildingHandler(building);
-                      }}
+                          >
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton>
+                            <DeleteForeverIcon
+                              onClick={(e) => {
+                                e.preventDefault();
+                                deleteHandler(building);
+                              }}
+                            />
+                          </IconButton>
+                        </>
+                      }
                     >
-                      <ListItemText primary={building.name} />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              });
-            })}
-        </List>
-
+                      <ListItemButton
+                        onClick={(e) => {
+                          e.preventDefault();
+                          buildingHandler(building);
+                        }}
+                      >
+                        <ListItemText primary={building.name} />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                });
+              })}
+          </List>
+        )}
         {addBuilding ? (
           <Button
             sx={{
