@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  GeoJSON,
-  Tooltip,
-  CircleMarker,
-} from 'react-leaflet';
+import { MapContainer, GeoJSON, Tooltip, CircleMarker } from 'react-leaflet';
 import mapData from '../../../server/data/countries.json';
 import countries from '../../../server/data/countriesList.json';
 import 'leaflet/dist/leaflet.css';
@@ -52,14 +44,16 @@ const BuildingMap = ({ selectedBuilding, setSelectedBuilding }) => {
         scrollWheelZoom={false}
         dragging={false}
         doubleClickZoom={false}
-        whenCreated={(map) =>
-          setSelectedBuilding({
-            map: map,
-            mode: selectedBuilding.mode,
-            building: selectedBuilding.building,
-            postion: selectedBuilding.postion,
-          })
-        }
+        whenCreated={(map) => {
+          if (selectedBuilding.mode !== true) {
+            setSelectedBuilding({
+              map: map,
+              mode: selectedBuilding.mode,
+              building: selectedBuilding.building,
+              postion: selectedBuilding.postion,
+            });
+          }
+        }}
       >
         <GeoJSON
           style={mapStyle}

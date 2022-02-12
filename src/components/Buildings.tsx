@@ -29,7 +29,14 @@ const Buildings = ({ client }: { client: any }) => {
         selectedBuilding={selectedBuilding}
       />
       {addBuilding ? (
-        <BuildingForm clientId={client} editBuilding={editBuilding} />
+        <BuildingForm
+          clientId={client}
+          editBuilding={editBuilding}
+          setAddBuilding={setAddBuilding}
+          addBuilding={addBuilding}
+          selectedBuilding={selectedBuilding}
+          setSelectedBuilding={setSelectedBuilding}
+        />
       ) : (
         <BuildingMap
           selectedBuilding={selectedBuilding}

@@ -15,9 +15,17 @@ import { createBuilding, editingBuilding } from '../../redux/actions/clients';
 const BuildingForm = ({
   clientId,
   editBuilding,
+  setAddBuilding,
+  addBuilding,
+  selectedBuilding,
+  setSelectedBuilding,
 }: {
   clientId: string;
   editBuilding: any;
+  setAddBuilding: any;
+  addBuilding: boolean;
+  selectedBuilding: any;
+  setSelectedBuilding: any;
 }) => {
   const [country, setCountry] = useState('');
   const [countryData, setCountryData] = useState({
@@ -41,25 +49,47 @@ const BuildingForm = ({
     setCountry(e.target.value);
   };
 
-  const countryAddHandler = (e: any) => {
+  const countryAddHandler = () => {
     const data = {
       name: countryData.name,
       position: country,
     };
 
     dispatch(createBuilding(clientId, data));
+    setAddBuilding(!addBuilding);
+    setSelectedBuilding({
+      mode: true,
+      building: {
+        name: countryData.name,
+      },
+      position: country,
+      map: selectedBuilding.map,
+    });
+    const map = selectedBuilding.map;
+    map.flyTo(selectedBuilding.position, 6);
   };
 
-  const countryEditHandler  =  () => {
+  const countryEditHandler = () => {
     const data = {
       id: clientId,
       building_id: editBuilding.building._id,
       name: countryData.name,
       position: country,
-    }
+    };
 
-    dispatch(editingBuilding(clientId, editBuilding.building._id, data))
-  }
+    dispatch(editingBuilding(clientId, editBuilding.building._id, data));
+    setAddBuilding(!addBuilding);
+    setSelectedBuilding({
+      mode: true,
+      building: {
+        name: countryData.name,
+      },
+      position: country,
+      map: selectedBuilding.map,
+    });
+    const map = selectedBuilding.map;
+    map.flyTo(selectedBuilding.position, 6);
+  };
 
   const cancelHandler = () => {
     setCountryData({ name: '' });
@@ -104,20 +134,24 @@ const BuildingForm = ({
               );
             })}
           </Select>
-          {editBuilding.mode ? <Button
-            sx={{ backgroundColor: 'text.primary' }}
-            variant="contained"
-            onClick={countryEditHandler}
-          >
-           Edit
-          </Button> : <Button
-            sx={{ backgroundColor: 'text.primary' }}
-            variant="contained"
-            onClick={countryAddHandler}
-          >
-            Create
-          </Button>}
-          
+          {editBuilding.mode ? (
+            <Button
+              sx={{ backgroundColor: 'text.primary' }}
+              variant="contained"
+              onClick={countryEditHandler}
+            >
+              Edit
+            </Button>
+          ) : (
+            <Button
+              sx={{ backgroundColor: 'text.primary' }}
+              variant="contained"
+              onClick={countryAddHandler}
+            >
+              Create
+            </Button>
+          )}
+
           <Button
             sx={{ backgroundColor: 'text.danger' }}
             variant="contained"
