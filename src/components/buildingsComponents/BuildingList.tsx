@@ -160,8 +160,8 @@ const BuildingList = ({
         {addBuilding ? (
           <Button
             sx={{
-              color: 'text.primary',
-              background: 'primary',
+              color: 'text.alternate',
+              background: 'secondary',
               width: '100%',
               height: '50px',
             }}
@@ -173,8 +173,8 @@ const BuildingList = ({
         ) : (
           <Button
             sx={{
-              color: 'text.primary',
-              background: 'primary',
+              color: 'text.alternate',
+              background: 'secondary',
               width: '100%',
               height: '50px',
             }}

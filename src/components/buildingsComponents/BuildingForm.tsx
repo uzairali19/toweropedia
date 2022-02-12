@@ -111,7 +111,11 @@ const BuildingForm = ({
           id="filled-basic"
           label="Building Name"
           variant="filled"
-          sx={{ minWidth: '300px' }}
+          sx={{
+            minWidth: '300px',
+            color: 'secondary.main',
+            label: { color: 'secondary.main' },
+          }}
           value={countryData.name}
           onChange={(e: any) => {
             setCountryData({ ...countryData, name: e.target.value });
