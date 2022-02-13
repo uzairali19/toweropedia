@@ -36,6 +36,7 @@ const BuildingList = ({
   const [loading, setLoading] = useState(true);
 
   const prevEditBuilding: any = useRef();
+  const map = selectedBuilding.map;
 
   useEffect(() => {
     prevEditBuilding.current = editBuilding;
@@ -85,8 +86,6 @@ const BuildingList = ({
       position: building.position,
       map: selectedBuilding.map,
     });
-    const map = selectedBuilding.map;
-    map.flyTo(selectedBuilding.position, 6);
   };
 
   return (
@@ -144,9 +143,9 @@ const BuildingList = ({
                       }
                     >
                       <ListItemButton
-                        onClick={(e) => {
-                          e.preventDefault();
+                        onClick={() => {
                           buildingHandler(building);
+                          map.flyTo(building.position, 6);
                         }}
                       >
                         <ListItemText primary={building.name} />
