@@ -20,6 +20,8 @@
 - Express.js
 - MongoDB Atlas
 - MaterialUi
+- Leaflet
+- React-leaflet
 
 ## Prerequisites
 
