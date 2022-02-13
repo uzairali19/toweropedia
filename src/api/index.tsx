@@ -1,8 +1,16 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3006/clients';
+const url = 'http://localhost:5000/clients';
 
 export const fetchClients = () => axios.get(url);
-export const createClient = (newClient?: any) => axios.post(url, newClient);
-export const deleteClient = (id?: any) => axios.delete(`${url}/${id}`);
-export const editClient = (id?: any) => axios.patch(`${url}/${id}/`);
+
+export const getBuildings = (id: any) => axios.get(`${url}/${id}/buildings`);
+
+export const createBuilding = (id: any, newBuilding: any) =>
+  axios.post(`${url}/${id}/buildings`, newBuilding);
+
+export const deleteBuilding = (id: any, buillding_id: any) =>
+  axios.delete(`${url}/${id}/buildings/${buillding_id}`);
+
+export const editBuilding = (id: any, building_id: any, building:any) =>
+  axios.patch(`${url}/${id}/buildings/${building_id}`, building);
