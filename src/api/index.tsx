@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/clients';
+const url = 'https://tower-node.herokuapp.com/clients';
 
 export const fetchClients = () => axios.get(url);
 
