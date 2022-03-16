@@ -9,7 +9,7 @@
 
 # Test it yourself
 
-[Live link](https://suspicious-euler-3f0223.netlify.app/)
+[Live link](https://622e7e1a146129170d0bf44d--confident-fermat-8811d2.netlify.app/)
 
 
 ## Built With
